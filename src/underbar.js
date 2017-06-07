@@ -207,11 +207,11 @@
       if (lastFound == false){
         return lastFound = false;
       } else if (iterator === undefined) {
-        if (item == false || item === undefined || item === null) {
+        if (Boolean(item) === false) {
           return lastFound = false;
         }
       } else {
-        if (iterator(item) == false || item === undefined || item === null) {
+        if (Boolean(iterator(item)) === false) {
           return lastFound = false;
         }
       }
@@ -228,14 +228,15 @@
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
     // iterate through all of the items in the collection with every
-      //if every returns true against the truth test  for any value some is true
-      //if every returns false for all value some is false
-      //I will test to see if I can get the test to fail for all values
       if (collection.length === 0){
         return false;
       }
-      return _.every(collection, function(item){
-        return iterator(item);
+      return !_.every(collection, function(item){
+        if (iterator === undefined) {
+          return Boolean(item) === false;
+        } else {
+          return Boolean(iterator(item)) === false;
+        }
       });
   };
 
