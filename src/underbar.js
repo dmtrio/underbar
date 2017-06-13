@@ -382,7 +382,6 @@
       newArray.push(countArray[rand]);
       countArray.splice(rand, 1);
     }
-    console.log(newArray);
     return newArray;
   };
 
